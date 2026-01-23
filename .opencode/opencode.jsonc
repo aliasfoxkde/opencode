@@ -20,9 +20,7 @@
             "temperature": true,
             "reasoning": true,
             "attachment": false,
-            "toolcall": true,
-            "input": { "text": true, "audio": false, "image": false, "video": false, "pdf": false },
-            "output": { "text": true, "audio": false, "image": false, "video": false, "pdf": false }
+            "toolcall": true
           },
           "cost": { "input": 0.0025, "output": 0.01 },
           "limit": { "context": 200000, "output": 8192 }
@@ -44,9 +42,7 @@
             "temperature": true,
             "reasoning": true,
             "attachment": true,
-            "toolcall": true,
-            "input": { "text": true, "audio": false, "image": true, "video": false, "pdf": false },
-            "output": { "text": true, "audio": false, "image": false, "video": false, "pdf": false }
+            "toolcall": true
           },
           "cost": { "input": 0.002, "output": 0.008 },
           "limit": { "context": 128000, "output": 4096 }
@@ -54,7 +50,7 @@
       }
     },
     "nanogpt-qwen": {
-      "api": "https://nano-gpt.com/v1/images/generations",
+      "api": "https://nano-gpt.com/v1",
       "env": ["NANO_GPT_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
@@ -68,9 +64,7 @@
             "temperature": true,
             "reasoning": false,
             "attachment": true,
-            "toolcall": false,
-            "input": { "text": true, "audio": false, "image": true, "video": false, "pdf": false },
-            "output": { "text": true, "audio": false, "image": true, "video": false, "pdf": false }
+            "toolcall": false
           },
           "cost": { "input": 0.001, "output": 0.01 },
           "limit": { "context": 32768, "output": 2048 }
@@ -80,7 +74,7 @@
     "google-gemma": {
       "api": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
       "env": ["GOOGLE_AI_API_KEY"],
-      "npm": "@ai-sdk/google",
+      "npm": "@ai-sdk/google-genai",
       "options": {
         "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai"
       },
@@ -92,11 +86,9 @@
             "temperature": true,
             "reasoning": true,
             "attachment": true,
-            "toolcall": true,
-            "input": { "text": true, "audio": false, "image": true, "video": false, "pdf": false },
-            "output": { "text": true, "audio": false, "image": false, "video": false, "pdf": false }
+            "toolcall": true
           },
-          "cost": { "input": 0.0, "output": 0.0 },
+          "cost": { "input": 0, "output": 0 },
           "limit": { "context": 131072, "output": 8192 }
         },
         "gemini-2.0-flash-exp": {
@@ -106,45 +98,19 @@
             "temperature": true,
             "reasoning": true,
             "attachment": true,
-            "toolcall": true,
-            "input": { "text": true, "audio": false, "image": true, "video": false, "pdf": false },
-            "output": { "text": true, "audio": false, "image": false, "video": false, "pdf": false }
+            "toolcall": true
           },
-          "cost": { "input": 0.0, "output": 0.0 },
+          "cost": { "input": 0, "output": 0 },
           "limit": { "context": 1000000, "output": 8192 }
         }
       }
-    },
-    "opencode": {
-      "options": {}
     }
   },
   "model": "zai-glm47/glm-4.7",
-  "small_model": "google-gemma/gemma-3-27b-it",
-  "vision_model": "zai-glm46v/glm-4.6v",
-  "image_model": "nanogpt-qwen/qwen-vl-plus",
-  "safety": {
-    "enabled": true,
-    "configPath": "/home/mkinney/repos/Droid-Config/config/safety",
-    "strictMode": false,
-    "warnMode": true,
-    "ragIntegration": true,
-    "ragDatabasePath": "/home/mkinney/repos/Droid-Config/data/memory.db"
-  },
   "permission": {
     "edit": "allow",
     "bash": "allow",
     "read": "allow",
     "write": "allow"
-  },
-  "mcp": {
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
-    }
-  },
-  "tools": {
-    "github-triage": false,
-    "github-pr-search": false
   }
 }
