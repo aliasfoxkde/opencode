@@ -2,18 +2,17 @@
   "$schema": "https://opencode.ai/config.json",
   "instructions": ["STYLE_GUIDE.md"],
   "provider": {
-    "zai-glm47": {
-      "api": "https://api.z.ai/api/anthropic",
+    "zai-glm": {
+      "api": "https://api.z.ai/api/coding/paas/v4/chat/completions",
       "env": ["ZAI_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "https://api.z.ai/api/anthropic",
-        "apiKey": "83b920990e934a30bf576e68b82ede53.ujzLoUIaieqK0DWx"
+        "baseURL": "https://api.z.ai/api/coding/paas/v4"
       },
       "models": {
-        "glm-4.7": {
-          "id": "glm-4.7",
-          "name": "GLM 4.7",
+        "glm-4.6": {
+          "id": "glm-4.6",
+          "name": "GLM 4.6 Coder",
           "capabilities": {
             "temperature": true,
             "reasoning": true,
@@ -21,49 +20,25 @@
             "toolcall": true
           },
           "cost": { "input": 0.0025, "output": 0.01 },
-          "limit": { "context": 200000, "output": 8192 }
+          "limit": { "context": 128000, "output": 8192 }
         }
       }
     },
-    "zai-glm46v": {
-      "api": "https://api.z.ai/api/anthropic",
-      "env": ["ZAI_API_KEY"],
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "https://api.z.ai/api/anthropic",
-        "apiKey": "83b920990e934a30bf576e68b82ede53.ujzLoUIaieqK0DWx"
-      },
-      "models": {
-        "glm-4.6v": {
-          "id": "glm-4.6v",
-          "name": "GLM 4.6V Vision",
-          "capabilities": {
-            "temperature": true,
-            "reasoning": true,
-            "attachment": true,
-            "toolcall": true
-          },
-          "cost": { "input": 0.002, "output": 0.008 },
-          "limit": { "context": 128000, "output": 4096 }
-        }
-      }
-    },
-    "nanogpt-qwen": {
-      "api": "https://nano-gpt.com/v1",
+    "nanogpt": {
+      "api": "https://nano-gpt.com/api/v1/chat/completions",
       "env": ["NANO_GPT_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "https://nano-gpt.com/v1",
-        "apiKey": "100f80b4-bd33-4d39-8ca8-20fb00075998"
+        "baseURL": "https://nano-gpt.com/api/v1"
       },
       "models": {
-        "qwen-vl-plus": {
-          "id": "qwen-vl-plus",
-          "name": "Qwen VL Plus",
+        "minimax-m2": {
+          "id": "MiniMax-M2",
+          "name": "MiniMax M2",
           "capabilities": {
             "temperature": true,
             "reasoning": false,
-            "attachment": true,
+            "attachment": false,
             "toolcall": false
           },
           "cost": { "input": 0.001, "output": 0.01 },
@@ -74,27 +49,15 @@
     "google-gemma": {
       "api": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
       "env": ["GOOGLE_AI_API_KEY"],
-      "npm": "@ai-sdk/google-genai",
+      "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai",
         "apiKey": "AIzaSyByZp4CqmNu-YH9uFTGBMljgxeRZvnPdAE"
       },
       "models": {
         "gemma-3-27b-it": {
-          "id": "models/gemma-3-27b-it",
-          "name": "Gemma 3 27B IT",
-          "capabilities": {
-            "temperature": true,
-            "reasoning": true,
-            "attachment": true,
-            "toolcall": true
-          },
-          "cost": { "input": 0, "output": 0 },
-          "limit": { "context": 131072, "output": 8192 }
-        },
-        "gemini-2.0-flash-exp": {
-          "id": "models/gemini-2.0-flash-exp",
-          "name": "Gemini 2.0 Flash Experimental",
+          "id": "gemini-2.0-flash-exp",
+          "name": "Gemini 2.0 Flash Exp",
           "capabilities": {
             "temperature": true,
             "reasoning": true,
@@ -107,7 +70,7 @@
       }
     }
   },
-  "model": "opencode/big-pickle",
+  "model": "zai-glm/glm-4.6",
   "permission": {
     "edit": "allow",
     "bash": "allow",
