@@ -10,9 +10,9 @@
         "baseURL": "https://api.z.ai/api/coding/paas/v4"
       },
       "models": {
-        "glm-4.6": {
-          "id": "glm-4.6",
-          "name": "GLM 4.6 Coder",
+        "glm-4.7": {
+          "id": "glm-4.7",
+          "name": "GLM 4.7",
           "capabilities": {
             "temperature": true,
             "reasoning": true,
@@ -20,7 +20,7 @@
             "toolcall": true
           },
           "cost": { "input": 0.0025, "output": 0.01 },
-          "limit": { "context": 128000, "output": 8192 }
+          "limit": { "context": 200000, "output": 8192 }
         }
       }
     },
@@ -45,32 +45,9 @@
           "limit": { "context": 32768, "output": 2048 }
         }
       }
-    },
-    "google-gemma": {
-      "api": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-      "env": ["GOOGLE_AI_API_KEY"],
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai",
-        "apiKey": "AIzaSyByZp4CqmNu-YH9uFTGBMljgxeRZvnPdAE"
-      },
-      "models": {
-        "gemma-3-27b-it": {
-          "id": "gemini-2.0-flash-exp",
-          "name": "Gemini 2.0 Flash Exp",
-          "capabilities": {
-            "temperature": true,
-            "reasoning": true,
-            "attachment": true,
-            "toolcall": true
-          },
-          "cost": { "input": 0, "output": 0 },
-          "limit": { "context": 1000000, "output": 8192 }
-        }
-      }
     }
   },
-  "model": "zai-glm/glm-4.6",
+  "model": "opencode/big-pickle",
   "permission": {
     "edit": "allow",
     "bash": "allow",
