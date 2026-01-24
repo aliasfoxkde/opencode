@@ -4,13 +4,11 @@
   "provider": {
     "zai-glm47": {
       "api": "https://api.z.ai/api/anthropic",
-      "env": ["ZAI_API_KEYS"],
+      "env": ["ZAI_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "https://api.z.ai/api/anthropic",
-        "headers": {
-          "anthropic-dangerous-direct-browser-access": "false"
-        }
+        "apiKey": "83b920990e934a30bf576e68b82ede53.ujzLoUIaieqK0DWx"
       },
       "models": {
         "glm-4.7": {
@@ -29,10 +27,11 @@
     },
     "zai-glm46v": {
       "api": "https://api.z.ai/api/anthropic",
-      "env": ["ZAI_API_KEYS"],
+      "env": ["ZAI_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "https://api.z.ai/api/anthropic"
+        "baseURL": "https://api.z.ai/api/anthropic",
+        "apiKey": "83b920990e934a30bf576e68b82ede53.ujzLoUIaieqK0DWx"
       },
       "models": {
         "glm-4.6v": {
@@ -54,7 +53,8 @@
       "env": ["NANO_GPT_API_KEY"],
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "https://nano-gpt.com/v1"
+        "baseURL": "https://nano-gpt.com/v1",
+        "apiKey": "100f80b4-bd33-4d39-8ca8-20fb00075998"
       },
       "models": {
         "qwen-vl-plus": {
@@ -76,7 +76,8 @@
       "env": ["GOOGLE_AI_API_KEY"],
       "npm": "@ai-sdk/google-genai",
       "options": {
-        "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai"
+        "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai",
+        "apiKey": "AIzaSyByZp4CqmNu-YH9uFTGBMljgxeRZvnPdAE"
       },
       "models": {
         "gemma-3-27b-it": {
@@ -106,7 +107,7 @@
       }
     }
   },
-  "model": "zai-glm47/glm-4.7",
+  "model": "opencode/big-pickle",
   "permission": {
     "edit": "allow",
     "bash": "allow",
