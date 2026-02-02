@@ -27,6 +27,45 @@ export { ContextStorage, getContextStorage } from "./storage";
 // Export hooks
 export { createContextHooks } from "./hooks";
 
+// Export model limits
+export {
+  MODEL_LIMITS,
+  DEFAULT_MODEL_LIMIT,
+  getModelLimit,
+  getUsableLimit,
+  getMaxLimit,
+  getBuffer,
+  isWithinSafeLimit,
+  getContextUsage,
+  getUsageStatus,
+  getContextBudget,
+} from "./limits";
+
+export type { ModelContextLimit, ContextBudget } from "./limits";
+
+// Export token counter
+export {
+  estimateTokens,
+  estimateObjectTokens,
+  estimateEntryTokens,
+  estimateEntriesTokens,
+  getTokenSummary,
+  getTotalTokens,
+  getTokenBudget,
+} from "./token-counter";
+
+export type { TokenCountOptions, TokenSummary, TokenBudget } from "./token-counter";
+
+// Export pruning
+export {
+  pruneContext,
+  needsPruning,
+  getPruningRecommendation,
+  autoPrune,
+} from "./pruning";
+
+export type { PruningStrategy, PruningOptions, PruningResult } from "./pruning";
+
 /**
  * OpenCode Plugin Entry Point
  *
