@@ -50,6 +50,9 @@ export interface SafetyViolation {
 
   /** Severity of the violation */
   severity: SafetySeverity;
+
+  /** Whether to block the operation when violated */
+  block?: boolean;
 }
 
 /**

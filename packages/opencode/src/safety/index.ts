@@ -10,6 +10,19 @@
 
 import type { PluginInput, Hooks } from "@opencode-ai/plugin";
 
+import type {
+  SafetyCheckResult,
+  SafetyConfig,
+  SafetyRule,
+  SafetySeverity,
+  SafetyViolation,
+  ToolContext,
+} from "./types";
+
+// Import functions directly for internal use
+import { checkSafety, shouldBlockTool } from "./detectors";
+import { enforceSafety } from "./enforcement";
+import { getSafetyConfig } from "./config";
 import { createSafetyHooks } from "./integration";
 
 // Export all types
@@ -23,22 +36,15 @@ export type {
 } from "./types";
 
 // Export detectors
-export { SAFETY_RULES, checkSafety, shouldBlockTool } from "./detectors";
+export { checkSafety, shouldBlockTool } from "./detectors";
+export { SAFETY_RULES } from "./detectors";
 
 // Export enforcement
-export {
-  DEFAULT_CONFIG,
-  enforceSafety,
-  isFileExempt,
-} from "./enforcement";
+export { enforceSafety, isFileExempt } from "./enforcement";
+export { DEFAULT_CONFIG } from "./enforcement";
 
 // Export config management
-export {
-  getSafetyConfig,
-  loadSafetyConfig,
-  reloadSafetyConfig,
-  validateConfig,
-} from "./config";
+export { getSafetyConfig, loadSafetyConfig, reloadSafetyConfig, validateConfig } from "./config";
 
 // Convenience function for complete safety check
 export async function performSafetyCheck(
@@ -47,7 +53,7 @@ export async function performSafetyCheck(
   options?: { strict?: boolean }
 ): Promise<{
     result: SafetyCheckResult;
-    action: "allow" | "warn" | "block";
+    action: "allow" | "warn" | "block" | "fix";
     message?: string;
   }> {
   const config = getSafetyConfig();

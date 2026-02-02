@@ -6,10 +6,42 @@
 
 import type { PluginInput, Hooks } from "@opencode-ai/plugin";
 import { Log } from "../util/log";
+import { checkSafety, shouldBlockTool } from "./detectors";
+import { enforceSafety } from "./enforcement";
+import { getSafetyConfig } from "./config";
+import type { SafetyCheckResult, SafetyConfig } from "./types";
 
 const log = Log.create({ service: "droid-safety-plugin" });
 
-import { checkSafety, shouldBlockTool, performSafetyCheck, getSafetyConfig } from "./index";
+/**
+ * Convenience function for complete safety check
+ */
+async function performSafetyCheck(
+  content: string,
+  filepath: string,
+  options?: { strict?: boolean }
+): Promise<{
+  result: SafetyCheckResult;
+  action: "allow" | "warn" | "block" | "fix";
+  message?: string;
+}> {
+  const config = getSafetyConfig();
+
+  // Override with options if provided
+  const effectiveConfig: SafetyConfig = {
+    ...config,
+    strictMode: options?.strict ?? config.strictMode,
+  };
+
+  const result = checkSafety(content, filepath);
+  const enforcement = enforceSafety(result, effectiveConfig);
+
+  return {
+    result,
+    action: enforcement.action,
+    message: enforcement.message,
+  };
+}
 
 /**
  * Create safety hooks for OpenCode plugin system
@@ -32,7 +64,7 @@ export function createSafetyHooks(input: PluginInput): Partial<Hooks> {
       }
 
       const tool = toolData.tool;
-      const args = toolArgs;
+      const args = toolArgs.args;
 
       log.debug("Tool execution before hook", { tool, args });
 
@@ -44,8 +76,8 @@ export function createSafetyHooks(input: PluginInput): Partial<Hooks> {
 
       // For write/edit operations, perform full safety check
       if (tool === "write" || tool === "edit") {
-        const filepath = args.filepath || args.path;
-        const content = args.content || args.text || args.body;
+        const filepath = (args as any).filepath || (args as any).path;
+        const content = (args as any).content || (args as any).text || (args as any).body;
 
         if (filepath && content) {
           const result = await performSafetyCheck(content, filepath, {
@@ -82,15 +114,23 @@ export function createSafetyHooks(input: PluginInput): Partial<Hooks> {
       if (!parts) return;
 
       // Add safety guidance to messages that appear to be creating new code
-      const userText = parts.map((p: any) => p.text || "").join(" ").toLowerCase();
+      const userText = parts
+        .map((p: any) => {
+          if (p.type === "text" && p.text) {
+            return p.text;
+          }
+          return "";
+        })
+        .join(" ")
+        .toLowerCase();
 
-      if (userText.includes("create") ||
-          userText.includes("write") ||
-          userText.includes("implement") ||
-          userText.includes("add code")) {
-
-        const safetyGuidance = `
-[DroidConfig Safety Guidelines]
+      if (
+        userText.includes("create") ||
+        userText.includes("write") ||
+        userText.includes("implement") ||
+        userText.includes("add code")
+      ) {
+        const safetyGuidance = `[DroidConfig Safety Guidelines]
 
 When writing code:
 - Never use placeholder data (TASK, ISSUE, TODO, etc.)
@@ -101,10 +141,12 @@ When writing code:
 - Write production-ready code from the start
 `.trim();
 
+        // Create a text part with required fields
+        // Note: We use partial object since the hook may fill in required IDs
         parts.push({
           type: "text",
           text: safetyGuidance,
-        });
+        } as any);
       }
     },
 
