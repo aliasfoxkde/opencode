@@ -90,6 +90,7 @@ export function checkSafety(content: string, filepath: string): SafetyCheckResul
           file: filepath,
           message: rule.message,
           severity: rule.severity,
+          block: rule.block,
         });
       }
     }
